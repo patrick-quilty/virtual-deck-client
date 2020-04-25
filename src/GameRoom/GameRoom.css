@@ -1,0 +1,208 @@
+.GameRoom * {
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 0;
+}
+
+.leaveButton {
+  position: fixed;
+  font-size: 13px;
+}
+.startGame {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 365px;
+  left: 330px;
+  font-size: 13px;
+}
+
+
+/*delete this */
+.endGame {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 365px;
+  left: 330px;
+  font-size: 13px;
+}
+/*delete this */
+
+
+/*Table Area*/
+.table {
+  height: 750px;
+  width: 750px;
+  position: relative;
+  border: 1px solid black;
+}
+/*Seats*/
+#seat0 {
+  height: 550px;
+  width: 100px;
+  position: absolute;
+  top: 100px;
+  border: 1px solid black;
+}
+#seat1 {
+  height: 100px;
+  width: 550px;
+  position: absolute;
+  left: 100px;
+  border: 1px solid black;
+}
+#seat2 {
+  height: 550px;
+  width: 100px;
+  position: absolute;
+  left: 650px;
+  top: 100px;
+  border: 1px solid black;
+}
+#seat3 {
+  height: 100px;
+  width: 550px;
+  position: absolute;
+  top: 650px;
+  left: 100px;
+  border: 1px solid black;
+}
+/*PlayCard*/
+.playCard0 {
+  height: 121px;
+  width: 86px;
+  position: absolute;
+  top: 315px;
+  left: 232px;
+  border: 1px solid black;
+}
+.playCard1 {
+  height: 121px;
+  width: 86px;
+  position: absolute;
+  top: 215px;
+  left: 332px;
+  border: 1px solid black;
+}
+.playCard2 {
+  height: 121px;
+  width: 86px;
+  position: absolute;
+  top: 315px;
+  left: 432px;
+  border: 1px solid black;
+}
+.playCard3 {
+  height: 121px;
+  width: 86px;
+  position: absolute;
+  top: 415px;
+  left: 332px;
+  border: 1px solid black;
+}
+/*Sit/Stand Buttons*/
+.sitButton0 {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 365px;
+  left: 5px;
+  font-size: 13px;
+}
+.sitButton1 {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 40px;
+  left: 330px;
+  font-size: 13px;
+}
+.sitButton2 {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 365px;
+  left: 655px;
+  font-size: 13px;
+}
+.sitButton3 {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 690px;
+  left: 330px;
+  font-size: 13px;
+}
+.standButton {
+  height: 20px;
+  width: 90px;
+  position: absolute;
+  top: 690px;
+  left: 330px;
+  font-size: 13px;
+}
+.userNameCard {
+  font-size: 13px;
+}
+
+
+
+
+
+
+.card {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-radius: 8px;
+}
+
+
+/*Chat Area*/
+.chatDiv {
+  height: 750px;
+  width: 375px;
+  vertical-align: top;
+  border: 1px solid black;
+}
+.chatLog {
+  height: 727px;
+  width: 100%;
+  font-size: 13px;
+  resize: none;
+}
+.chatForm {
+  height: 25px;
+}
+.chatInput {
+  font-size: 13px;
+  width: 323px;
+}
+.chatButton {
+  font-size: 13px;
+  width: 50px;
+}
+
+
+
+
+/*Larger screen dimensions*/
+/*@media screen and (max-width: 540px) {
+    .view {
+        width: 400px;
+    }
+}*/
+
+/* For Tablets */
+/*@media screen and (min-width: 540px) and (max-width: 780px) {*/
+
+/*Smaller screen dimensions*/
+
+
+
+
+
+
+
