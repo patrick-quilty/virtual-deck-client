@@ -16,6 +16,7 @@ const Decks = [
   {
     name: 'euchreDeck',
     deck: standard52CardDeck.deck.filter(card => euchreCards.includes(card.id)),
+    scoreCards: standard52CardDeck.deck.filter(card => ['4S', '6S', '4H', '6H'].includes(card.id)),
     back: standard52CardDeck.back,
   },
 

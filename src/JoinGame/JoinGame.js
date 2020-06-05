@@ -48,6 +48,7 @@ class JoinGame extends Component {
             <br />
             
             <input
+              className="joinButton"
               type="submit"
               value="Join"
               onClick={(e)=> joinGame(e, gameNumber, userName)} />

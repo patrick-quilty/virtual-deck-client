@@ -53,7 +53,7 @@ import CAH from './AH.png';
 import C0J from './0Joker.png';
 import C0B from './0Back.png';
 
-// Create a card object for each card in the standard deck
+// Create a card array for each card in the standard deck
 const pictures = [
   C2S, C3S, C4S, C5S, C6S, C7S, C8S, C9S, C10S, CJS, CQS, CKS, CAS,
   C2D, C3D, C4D, C5D, C6D, C7D, C8D, C9D, C10D, CJD, CQD, CKD, CAD,

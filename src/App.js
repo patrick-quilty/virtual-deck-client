@@ -5,7 +5,7 @@ import CreateGame from './CreateGame/CreateGame.js';
 import JoinGame from './JoinGame/JoinGame.js';
 import GameRoom from './GameRoom/GameRoom.js';
 
-const serverURL = process.env.SERVER_URL;
+const serverURL = 'https://desolate-woodland-08731.herokuapp.com';
 
 function getGameNumbers() {
   return fetch(serverURL + '/games')
@@ -14,14 +14,15 @@ function getGameNumbers() {
     .catch(err => console.log(err))
 }
 
-function postNewGameNumber(newGameNumber, game, players) {
+function postNewGameNumber(newGameNumber, game, players, gameData) {
   return fetch(serverURL + '/newGame', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       gameNumber: newGameNumber,
       game: game,
-      players: players
+      players: players,
+      gameData: gameData
     })
   })
     .then(res => res.json())
@@ -60,6 +61,7 @@ class App extends Component {
       gameNumber: '',
       game: '',
       players: '',
+      gameObject: '',
       createError: false,
       gameCreated: false,
       userName: '',
@@ -87,7 +89,8 @@ class App extends Component {
     } while(!unused);
 
     // Sends the new gameNumber to the server which adds a new game record to the database
-    const res = await postNewGameNumber(newGameNumber, game, players);
+    const gameData = JSON.stringify(Games.find(gameObject => gameObject.name === game).gameData);
+    const res = await postNewGameNumber(newGameNumber, game, players, gameData);
 
     // If successful then update the state
     if ('' + res === '' + newGameNumber) {
@@ -108,32 +111,39 @@ class App extends Component {
   async joinGame(e, gameNumber, userName) {
     // Check if gameNumber exists and if so then enter the GameRoom as the new user
     e.preventDefault();
+    document.querySelector('.joinButton').disabled = true;
 
     // Gets all the data for the requested game
     const gameRoomData = await getGameRoomData(gameNumber);
+    const gameObject = Games.find(game => game.name === gameRoomData.game);
 
     // If requested game does not exist or userName is blank then display error
     if (gameNumber === '' || !gameNumber.trim() || gameRoomData === 'Game Number Not Found' ||
           userName === '' || !userName.trim()) {
+      document.querySelector('.joinButton').disabled = false;
       this.setState({
         joinError: true
       })
       return;
     }
 
-    // If userName is used already then add a (2)
+    // If userName is used then display error
+    userName = userName.slice(0, 15);
     if (gameRoomData.users !== '[]') {
       const userList = JSON.parse(gameRoomData.users).map(user => user.name);
-      do{
-        if (userList.includes(userName)) {
-          userName += '(2)';
-        }
-      }while(userList.includes(userName))
+      if (userList.includes(userName)) {
+        document.querySelector('.joinButton').disabled = false;
+        this.setState({
+          joinError: true
+        })
+        return;
+      }
     }
 
     // Post new user to the database
     const posted = await postNewUser(gameNumber, userName, gameRoomData.game);
     if (posted.status !== 200) {
+      document.querySelector('.joinButton').disabled = false;
       this.setState({
         joinError: true
       })
@@ -143,7 +153,7 @@ class App extends Component {
     // Update state to enter GameRoom
     this.setState({
       gameNumber: gameNumber,
-      game: gameRoomData.game,
+      gameObject: gameObject,
       userName: userName,
       createError: false,
       gameCreated: false,
@@ -154,12 +164,7 @@ class App extends Component {
 
   async leaveGame(e) {
     e.preventDefault();
-    //handle remove player from gameroom call
-
-    // removeUser(this.state.gameNumber, this.state.userName);
-
-
-
+    // Exits the gameRoom and resets the main page
 
     this.setState({
       gameNumber: '',
@@ -174,7 +179,7 @@ class App extends Component {
   }
 
   render() {
-    const {gameNumber, game, players, createError, gameCreated, userName, joinError, inGame} = this.state;
+    const {gameNumber, game, players, gameObject, createError, gameCreated, userName, joinError, inGame} = this.state;
 
     return (
       <div className='App'>
@@ -192,14 +197,14 @@ class App extends Component {
           <p>Game Created: #{gameNumber}: {game} - {players} Players</p>}
 
         {!joinError ? null :
-          <p>Ensure Game Number is correct and User Name is not blank</p>}
+          <p>Ensure Game Number is correct and User Name is not blank or taken</p>}
         
         {!inGame ? null :
           <GameRoom
             serverURL={serverURL}
             leaveGame={this.leaveGame}
             gameNumber={gameNumber}
-            game={game}
+            gameObject={gameObject}
             userName={userName} />}
       </div>
     );
@@ -207,8 +212,3 @@ class App extends Component {
 }
 
 export default App;
-// Create Game box just creates the game and adds it to the database of games:
-// | Game Number | Game | Players | People in room | Date Started |
-// Maybe make this viewable under the two boxes, like the 5 most recent rooms created and sorted by most people in the room
-//
-// So Create Game box creates the room and displays the number to the creator, maybe puts it in the game number input in Join Game box
