@@ -1,22 +1,29 @@
 {
   "name": "virtual-deck",
   "version": "1.0.0",
+  "homepage": "https://quiltdaddy.github.io/virtual-deck-client",
   "private": true,
   "dependencies": {
-    "braces": "^2.3.1",
-    "eslint": "^4.18.2",
-    "js-yaml": "^3.13.1",
-    "mem": "^4.0.0",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-scripts": "1.1.4",
-    "socket.io-client": "2.1.0",
-    "webpack-dev-server": "^3.1.11"
+    "socket.io-client": "2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "braces": "^2.3.1",
+    "eslint": "^4.18.2",
+    "gh-pages": "^3.0.0",
+    "js-yaml": "^3.13.1",
+    "mem": "^4.0.0",
+    "webpack-dev-server": "^3.1.11",
+    "websocket-extensions": "0.1.4"
   }
 }
