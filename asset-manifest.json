@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/virtual-deck-client/static/css/main.e83a71ac.css",
+    "main.css": "/virtual-deck-client/static/css/main.aa42466a.css",
     "main.js": "/virtual-deck-client/static/js/main.74379bff.js",
     "static/media/0Back.png": "/virtual-deck-client/static/media/0Back.0397a3499215d421cfe0.png",
     "static/media/GameTable.png": "/virtual-deck-client/static/media/GameTable.f23cf4244ff8888bde1a.png",
@@ -23,11 +23,11 @@
     "static/media/9H.png": "/virtual-deck-client/static/media/9H.7cd3e4d78ff3540e7550.png",
     "static/media/7D.png": "/virtual-deck-client/static/media/7D.c42a5931ef088c41b259.png",
     "index.html": "/virtual-deck-client/index.html",
-    "main.e83a71ac.css.map": "/virtual-deck-client/static/css/main.e83a71ac.css.map",
+    "main.aa42466a.css.map": "/virtual-deck-client/static/css/main.aa42466a.css.map",
     "main.74379bff.js.map": "/virtual-deck-client/static/js/main.74379bff.js.map"
   },
   "entrypoints": [
-    "static/css/main.e83a71ac.css",
+    "static/css/main.aa42466a.css",
     "static/js/main.74379bff.js"
   ]
 }
