@@ -1,7 +1,7 @@
 {
   "name": "virtual-deck",
   "version": "1.0.0",
-  "homepage": "https://quiltdaddy.github.io/virtual-deck-client",
+  "homepage": "https://patrick-quilty.github.io/virtual-deck-client",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
