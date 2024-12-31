@@ -5,7 +5,7 @@ import CreateGame from './CreateGame/CreateGame.js';
 import JoinGame from './JoinGame/JoinGame.js';
 import GameRoom from './GameRoom/GameRoom.js';
 
-const serverURL = 'https://virtual-deck-1a5ebf4abe4a.herokuapp.com/';
+const serverURL = 'https://virtual-deck-1a5ebf4abe4a.herokuapp.com';
 
 function getGameNumbers() {
   return fetch(serverURL + '/games')
