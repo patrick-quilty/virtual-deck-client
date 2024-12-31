@@ -1,3 +1,6 @@
+#root {
+  overflow-y: hidden;
+}
 .GameRoom * {
   display: inline-block;
   box-sizing: border-box;
@@ -141,6 +144,7 @@
   width: 750px;
   position: relative;
   border: 1px solid black;
+  margin-bottom: -4px;
 }
 #startGame {
   top: 365px;

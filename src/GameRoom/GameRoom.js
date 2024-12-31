@@ -4,6 +4,7 @@ import GameTable from './GameTable.png';
 import './GameRoom.css';
 
 let Socket = '';
+let keepAliveInterval = '';
 
 class GameRoom extends Component {
   constructor (props) {
@@ -55,7 +56,13 @@ class GameRoom extends Component {
 
   componentDidMount() {
     // Create WebSocket between client and server
-    Socket = io(this.props.serverURL);
+    Socket = io(this.props.serverURL, {
+      reconnection: true,  // Enable reconnection
+      reconnectionAttempts: 100,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000,  // Set timeout for initial connection
+    });
 
     // Provide client data to server
     const initialData = {
@@ -65,24 +72,32 @@ class GameRoom extends Component {
     };
     Socket.emit('first-contact', initialData);
 
-    // Prevent timout for inactive client
+    // Prevent timeout for inactive client
     Socket.on('keepAlive', () => this.keepAlive());
-    Socket.on('stayAlive', () => {}); // Receive Pong
 
-    // Receive the current gameRoom state from the database to construct here
+    // Receive the current gameRoom state
     Socket.on('gameRoomState', gameRoom => this.buildRoom(gameRoom));
 
-    // Handles all game updates after inital gameRoomState
+    // Handles all game updates after initial gameRoomState
     Socket.on('updateRoom', data => this.updateRoom(data));
   }
+  componentWillUnmount() {
+    if (keepAliveInterval) clearInterval(keepAliveInterval);
+    Socket.off('reconnect');
+    Socket.off('reconnect_failed');
+    Socket.off('disconnect');
+  }
+
   keepAlive() {
     // Send Ping
-    setInterval(function(){
-      Socket.emit('keepAlive', '');
-    }, 10000);
+    if (keepAliveInterval) clearInterval(keepAliveInterval);
+    keepAliveInterval = setInterval(() => Socket.emit('keepAlive', ''), 10000)
   }
   buildRoom(gameRoom) {
     // Defines the current state of the room
+
+    // Resize gameRoom
+    document.documentElement.style.zoom = `${window.innerHeight / 750}`;
 
     // Define gameStages
     const allStages = ['decisions', 'assignDealer', 'deal', 'bidding', 'trump', 'rounds', 'winner'];
@@ -141,7 +156,6 @@ class GameRoom extends Component {
   }
   updateRoom(data) {
     // Handle each update
-    // console.log(data);
 
     // Determine which type of updates are needed
     const keys = Object.keys(data);
@@ -220,7 +234,7 @@ class GameRoom extends Component {
         newState.client.thisTricksCards = {};
       }
 
-      // Remove upcard property from card img holder that was just played
+      // Remove upCard property from card img holder that was just played
       Object.keys(newState.gameData.round.cardsPlayed).forEach(player => {
         let playerPlus = player.slice(0, -1) + ((parseInt(player.slice(-1), 10) + 1) % newState.players);
         if ((this.isDataThere(newState.client.thisTricksCards, player) && 
